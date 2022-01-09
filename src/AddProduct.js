@@ -60,13 +60,13 @@ const AddProduct = () => {
     return (
         <div>
             <Box textAlign="center"  >
-                <Typography variant="h4"> ADD Product</Typography>
+                <Typography variant="h4"> ADD PRODUCTS</Typography>
             </Box>
-            <form noValidate >
+            <form noValidate  >
                 <Grid container spacing={4} justify="center">
 
 
-                    <Grid m={2} mb={2} item xs={4} sm={4}>
+                    <Grid m={2} mb={2} item xs={6} sm={6}>
                         <TextField
                             onChange={(e) => ontextFieldChange(e)}
                             autoComplete="title" name="title"
@@ -74,7 +74,7 @@ const AddProduct = () => {
                             label="title" autoFocus />
 
                     </Grid>
-                    <Grid item xs={4} sm={4}>
+                    <Grid item xs={6} sm={6}>
                         <TextField
 
                             onChange={(e) => ontextFieldChange(e)}
@@ -113,12 +113,12 @@ const AddProduct = () => {
 
 
                 </Grid>
-                <Box m={8}>
+                <Box m={10} >
                     <Button type="submit" variant="contained" color="primary" fullWidth onClick={(e) => onFormSubmit(e)}>Add Product</Button>
                 </Box>
 
             </form>
-        </div>
+        </div >
     )
 }
 

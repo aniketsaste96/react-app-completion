@@ -117,6 +117,8 @@ export default function Topbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
     </Menu>
   );
 
@@ -175,7 +177,7 @@ export default function Topbar() {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
-              ADMIN ANIKET
+              Admin Panel
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
