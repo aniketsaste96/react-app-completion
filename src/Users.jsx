@@ -6,9 +6,13 @@ import {
   TextField,
   Grid,
 } from "@material-ui/core";
-import { deepPurple, green, orange } from "@material-ui/core/colors";
+import { deepPurple, orange } from "@material-ui/core/colors";
 import ListUsers from "./ListUsers.js";
 import axios from "axios";
+
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 import { useState } from "react";
 const useStyles = makeStyles({
   headingColor: {
@@ -31,32 +35,62 @@ const useStyles = makeStyles({
 
 const Users = () => {
   const classes = useStyles();
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-  });
-
   const [status, setStatus] = useState();
 
-  function ontextFieldChange(e) {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
-    console.log(user);
-  }
+  //FORM VALIDATION
+  const formvalidateSchema = yup.object({
+    email: yup
+      .string()
+      .min(5, "Need a longer email")
+      .matches(
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        "pattern not matched"
+      )
+      .required(),
+    name: yup.string().required(),
+    phone: yup.number().required(),
+    address: yup.string().max(40).required(),
+  });
+  // const [user, setUser] = useState({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  //   address: "",
+  // });
 
-  async function onFormSubmit(e) {
-    e.preventDefault();
+  const { handleSubmit, values, handleChange, handleBlur, touched, errors } =
+    useFormik({
+      initialValues: {
+        email: "",
+        name: "",
+        phone: "",
+        address: "",
+      },
+
+      onSubmit: (newUser) => {
+        onFormSubmit(newUser);
+        console.log(newUser);
+      },
+      validationSchema: formvalidateSchema,
+    });
+
+  // function ontextFieldChange(e) {
+  //   setUser({
+  //     ...user,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   console.log(user);
+  // }
+
+  async function onFormSubmit(newUser) {
+    // newUser.preventDefault();
 
     try {
       await axios.post(
-        `https://61c412cff1af4a0017d9927b.mockapi.io/users/`,
-        user
+        "https://61c412cff1af4a0017d9927b.mockapi.io/users/",
+        newUser
       );
-
+      console.log(newUser);
       setStatus(true);
     } catch (error) {
       console.log("Opps something went wrong!!");
@@ -83,11 +117,15 @@ const Users = () => {
           >
             <Typography variant="h4"> ADD User</Typography>
           </Box>
-          <form noValidate>
+          <form onSubmit={handleSubmit} id="myForm">
             <Grid container spacing={4} justify="center">
               <Grid item xs={11} sm={11}>
                 <TextField
-                  onChange={(e) => ontextFieldChange(e)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                  error={touched.name && errors.name}
+                  helperText={touched.name && errors.name ? errors.name : ""}
                   autoComplete="name"
                   name="name"
                   varient="outlined"
@@ -101,7 +139,11 @@ const Users = () => {
               <Grid item xs={11} sm={11}>
                 <TextField
                   //  onChnage={ontextFieldChange} == no cz it calles emmediatly
-                  onChange={(e) => ontextFieldChange(e)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  error={touched.email && errors.email}
+                  helperText={touched.email && errors.email ? errors.email : ""}
                   autoComplete="email"
                   name="email"
                   varient="outlined"
@@ -114,7 +156,11 @@ const Users = () => {
               </Grid>
               <Grid item xs={11} sm={11}>
                 <TextField
-                  onChange={(e) => ontextFieldChange(e)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phone}
+                  error={touched.phone && errors.phone}
+                  helperText={touched.phone && errors.phone ? errors.phone : ""}
                   autoComplete="phone"
                   name="phone"
                   varient="outlined"
@@ -127,7 +173,13 @@ const Users = () => {
               </Grid>
               <Grid item xs={11} sm={11}>
                 <TextField
-                  onChange={(e) => ontextFieldChange(e)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.address}
+                  error={touched.address && errors.address}
+                  helperText={
+                    touched.address && errors.address ? errors.address : ""
+                  }
                   autoComplete="address"
                   name="address"
                   varient="outlined"
@@ -145,7 +197,8 @@ const Users = () => {
                 variant="contained"
                 color="primary"
                 fullWidth
-                onClick={(e) => onFormSubmit(e)}
+                form="myForm"
+                // onClick={() => onFormSubmit()}
               >
                 Add
               </Button>
