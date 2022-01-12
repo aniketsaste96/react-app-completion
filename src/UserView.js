@@ -58,15 +58,16 @@ const View = () => {
         }
         getUsers();
 
-    }, [id])
+    }, [id]) //useEffect watch only id changes not all 
 
 
 
 
     const classes = useStyles();
-
+              
     return (
         <>
+        //using material ui table properties
             <Box textAlign="center" p={2} m={2} className={classes.stuListColor}>
                 <Typography variant="h4">STUDENT LIST</Typography>
             </Box>
@@ -103,6 +104,7 @@ const View = () => {
                 </Table>
             </TableContainer>
             <Box m={3}>
+                
                 <Button onClick={() => history.push('/Users')} type="submit" variant="contained" color="primary" fullWidth>
                     Back To Home
                 </Button>
