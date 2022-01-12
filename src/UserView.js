@@ -46,18 +46,17 @@ const View = () => {
     const { id } = useParams();
     const [users, setUsers] = useState([])//[] imp
     useEffect(() => {
-        async function getStudent() {
+        async function getUsers() {
             try {
                 const user = await axios.get(`https://61c412cff1af4a0017d9927b.mockapi.io/users/${id}`);
                 setUsers(user.data)
-                // console.log(student.data)
-
+               
             } catch (error) {
                 console.log("Opps something went wrong!!")
 
             }
         }
-        getStudent();
+        getUsers();
 
     }, [id])
 
