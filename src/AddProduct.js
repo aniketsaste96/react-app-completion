@@ -1,6 +1,6 @@
 import { Button, Typography, Box, makeStyles, TextField, Grid } from "@material-ui/core"
 import { deepPurple, green, orange } from '@material-ui/core/colors';
-import axios from 'axios';
+import axios from 'axios'; //better to use 
 import { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
@@ -53,7 +53,7 @@ const AddProduct = () => {
         }
     }
 
-    // return Home if status is true
+    // return to products if status is true
     if (status) {
         history.push("/Product")
     }
