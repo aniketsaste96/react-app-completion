@@ -14,6 +14,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import { useState } from "react";
+
+//material UI styling
 const useStyles = makeStyles({
   headingColor: {
     backgroundColor: deepPurple[900],
@@ -37,7 +39,7 @@ const Users = () => {
   const classes = useStyles();
   const [status, setStatus] = useState();
 
-  //FORM VALIDATION
+  //FORM VALIDATION with conditions
   const formvalidateSchema = yup.object({
     email: yup
       .string()
@@ -117,6 +119,7 @@ const Users = () => {
           >
             <Typography variant="h4"> ADD User</Typography>
           </Box>
+//send data to FORMIK to handle 
           <form onSubmit={handleSubmit} id="myForm">
             <Grid container spacing={4} justify="center">
               <Grid item xs={11} sm={11}>
