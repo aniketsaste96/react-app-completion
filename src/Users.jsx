@@ -73,7 +73,7 @@ const Users = () => {
         onFormSubmit(newUser);
         console.log(newUser);
       },
-      validationSchema: formvalidateSchema,
+      validationSchema: formvalidateSchema,  //macthing 
     });
 
   // function ontextFieldChange(e) {
@@ -100,7 +100,7 @@ const Users = () => {
   }
 
   if (status) {
-    return <Users />;
+    return <Users />; //rerender Users after addition of user
   }
 
   return (
